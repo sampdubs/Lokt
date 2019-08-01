@@ -1,0 +1,9 @@
+fbs
+PyQt5
+sip
+pyperclip
+cryptography
+requests
+flask
+pymongo
+gunicorn
