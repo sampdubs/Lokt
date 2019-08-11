@@ -5,7 +5,7 @@ from requests import post, get
 from json import dumps, loads, JSONDecodeError
 import os
 
-HOST = "https://sampw-password-manager.herokuapp.com"
+HOST = os.getenv('SERVER_HOST')
 
 
 def sha256(s):
