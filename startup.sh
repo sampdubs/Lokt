@@ -17,18 +17,19 @@ if [ $0 == "zsh" ]; then
     rc_file="$HOME/.zshrc"
 fi
 
+### Install software dependencies
 command_name=brew
 if ! type "$command_name" > /dev/null; then
-    echo "\n${purple}Installing Homebrew${normal}\n"
+    echo -e "\n${purple}Installing Homebrew${normal}\n"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-    echo "\n${purple}Homebrew already exists, updating homebrew.${normal}\n"
+    echo -e "\n${purple}Homebrew already exists, updating homebrew.${normal}\n"
     brew update
 fi
 
 for command_name in node yarn watchman pyenv
 do
-    echo "\n\n${purple}Installing/upgrading $command_name.${normal}\n"
+    echo -e "\n\n${purple}Installing/upgrading $command_name.${normal}\n"
     brew install $command_name
     brew upgrade $command_name
 done
@@ -37,39 +38,42 @@ brew link node
 
 command_name=xcode-select
 if ! type "$command_name" > /dev/null; then
-    echo "\n${purple}Installing Xcode command line tools.${normal}\n"
+    echo -e "\n${purple}Installing Xcode command line tools.${normal}\n"
     $command_name --install
 else
-    echo "\n${purple}Xcode command line tools already exists, skipping install.${normal}\n"
+    echo -e "\n${purple}Xcode command line tools already exists, skipping install.${normal}\n"
 fi
 
-echo "\n${purple}Installing React Native dependencies using homebrew and npm.${normal}\n"
+echo -e "\n${purple}Installing React Native dependencies using homebrew and npm.${normal}\n"
 brew tap AdoptOpenJDK/openjdk
 brew cask install adoptopenjdk8
 npm install -g react-native-cli
 
-echo "\n\n${purple}Installing fbs/PyQt5 dependencies using pyenv and pip, this might take a while.${normal}\n\n"
+echo -e "\n\n${purple}Installing fbs/PyQt5 dependencies using pyenv and pip, this might take a while.${normal}\n\n"
 pyenv init
-echo "\n"eval '"$(pyenv init -)"' >> $rc_file
+echo -e "\n eval \"$(pyenv init -)\"" >> $rc_file
 pyenv uninstall -f 3.6.0
 PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
 pyenv local 3.6.0
 pip install --upgrade pip
-echo "\n\n${purple}Setting up python virtual environment${normal}\n\n"
+echo -e "\n\n${purple}Setting up python virtual environment${normal}\n\n"
 pip install virtualenv
 virtualenv Lokt-venv
 source Lokt-venv/bin/activate
 
-mv server/* .
 pip install -Ur requirements.txt
-echo "\n\n${purple}Starting the fbs project. For app name, you should enter Lokt. You can just press enter through the next fields${normal}\n\n"
+
+### Setting up FBS Project (Desktop client)
+echo -e "\n\n${purple}Starting the fbs project. For app name, you should enter Lokt. You can just press enter through the next fields${normal}\n\n"
 fbs startproject
 rm -rf src/main/icons
 mkdir target
 mv lib/fbs/Icon.iconset target/Icon.iconset
 mv lib/fbs/main.py src/main/python/main.py
 mv lib/fbs/helpers.py src/main/python/helpers.py
-echo "\n\n${purple}Starting the React Native project.${normal}\n\n"
+
+### Setting up React Native Project (Mobile client)
+echo -e "\n\n${purple}Starting the React Native project.${normal}\n\n"
 react-native init --version="0.59.9" Lokt
 cd Lokt
 mv ../lib/react-native/helpers.js ../lib/react-native/App.js .
@@ -79,6 +83,8 @@ npm install -g yo generator-rn-toolbox
 yo rn-toolbox:assets --icon ../lib/react-native/icon.png
 mv ../lib/react-native/fernet.js node_modules/fernet/fernet.js
 cd ..
-rm -rf .git lib server startup.sh
-echo "\n\n${purple}Everything is setup! You can now run `fbs run` or `react-native run-(ios|android)`${normal}"
-echo "${purple}To learn more about usage and building for the app, go to https://build-system.fman.io/ and https://facebook.github.io/react-native/${normal}\n\n"
+
+### Clean up
+#rm -rf .git lib server startup.sh
+echo -e "\n\n${purple}Everything is setup! You can now run 'fbs run' or 'react-native run-(ios|android)'${normal}"
+echo -e "${purple}To learn more about usage and building for the app, go to https://build-system.fman.io/ and https://facebook.github.io/react-native/${normal}\n\n"
