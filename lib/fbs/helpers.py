@@ -5,7 +5,8 @@ from requests import post, get
 from json import dumps, loads, JSONDecodeError
 import os
 
-HOST = os.getenv('SERVER_HOST')
+##Change this if you are creating your own server and mongodb
+HOST = "https://sampw-password-manager.herokuapp.com"
 
 
 def sha256(s):
