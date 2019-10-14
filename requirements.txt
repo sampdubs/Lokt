@@ -1,0 +1,8 @@
+fbs
+PyQt5==5.9.2
+hashlib
+cryptography
+requests
+sip
+functools
+pyperclip
