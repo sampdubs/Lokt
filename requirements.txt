@@ -3,5 +3,4 @@ PyQt5==5.9.2
 cryptography
 requests
 sip
-functools
 pyperclip
