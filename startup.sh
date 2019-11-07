@@ -87,5 +87,5 @@ cd ..
 
 ### Clean up
 #rm -rf .git lib server startup.sh
-echo -e "\n\n${purple}Everything is setup! You can now run 'fbs run' or 'react-native run-(ios|android)'${normal}"
+echo -e "\n\n${purple}Everything is setup! You can now run 'fbs run' or 'cd Lokt && react-native run-(ios|android)'${normal}"
 echo -e "${purple}To learn more about usage and building for the app, go to https://build-system.fman.io/ and https://facebook.github.io/react-native/${normal}\n\n"
