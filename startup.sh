@@ -35,6 +35,7 @@ do
 done
 
 brew link node
+npm install -g npm
 
 command_name=xcode-select
 if ! type "$command_name" > /dev/null; then
