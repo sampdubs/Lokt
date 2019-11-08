@@ -63,6 +63,7 @@ virtualenv Lokt-venv
 source Lokt-venv/bin/activate
 
 pip install -Ur requirements.txt
+pip install PyQt5==5.9.2
 
 ### Setting up FBS Project (Desktop client)
 echo -e "\n\n${purple}Starting the fbs project. For app name, you should enter Lokt. You can just press enter through the next fields${normal}\n\n"
