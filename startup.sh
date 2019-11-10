@@ -53,9 +53,13 @@ npm install -g react-native-cli
 echo -e "\n\n${purple}Installing fbs/PyQt5 dependencies using pyenv and pip, this might take a while.${normal}\n\n"
 pyenv init
 echo -e "\n eval \"$(pyenv init -)\"" >> $rc_file
-pyenv uninstall -f 3.6.0
-PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
 pyenv local 3.6.0
+version = `python -c 'import platform; print(platform.python_version())'`
+if [ "$version" != "3.6.0" ]; then
+    pyenv uninstall -f 3.6.0
+    PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
+    pyenv local 3.6.0
+fi
 pip install --upgrade pip
 echo -e "\n\n${purple}Setting up python virtual environment${normal}\n\n"
 pip install virtualenv
@@ -76,11 +80,15 @@ mv lib/fbs/helpers.py src/main/python/helpers.py
 
 ### Setting up React Native Project (Mobile client)
 echo -e "\n\n${purple}Starting the React Native project.${normal}\n\n"
-react-native init --version="0.59.9" Lokt
+react-native init --version="0.61.4" Lokt
 cd Lokt
 mv ../lib/react-native/helpers.js ../lib/react-native/App.js .
 npm install react-native-base64 crypto-js big-integer react-native-fs fernet buffer react-native-elements react-native-vector-icons
-react-native link react-native-vector-icons react-native-fs
+react-native link react-native-fs
+cd ios
+pod repo update
+pod install
+cd ..
 npm install -g yo generator-rn-toolbox
 yo rn-toolbox:assets --icon ../lib/react-native/icon.png
 mv ../lib/react-native/fernet.js node_modules/fernet/fernet.js
