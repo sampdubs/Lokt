@@ -54,8 +54,7 @@ echo -e "\n\n${purple}Installing fbs/PyQt5 dependencies using pyenv and pip, thi
 pyenv init
 echo -e "\n eval \"$(pyenv init -)\"" >> $rc_file
 pyenv local 3.6.0
-version = `python -c 'import platform; print(platform.python_version())'`
-if [ "$version" != "3.6.0" ]; then
+if [ "$(`python -c 'import platform; print(platform.python_version())'`)" != "3.6.0" ]; then
     pyenv uninstall -f 3.6.0
     PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.6.0
     pyenv local 3.6.0
