@@ -91,6 +91,7 @@ react-native link react-native-fs
 echo -e "\n\n${purple}Setting up cocoa pods.${normal}\n\n"
 cd ios
 pod repo update
+mv ../../lib/react-native/Podflie Podfile
 pod install
 cd ..
 npm install -g yo generator-rn-toolbox
