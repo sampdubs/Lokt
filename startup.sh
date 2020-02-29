@@ -88,6 +88,7 @@ react-native link react-native-randombytes
 npm i --save-dev tradle/rn-nodeify
 ./node_modules/.bin/rn-nodeify --hack --install
 react-native link react-native-fs
+echo -e "\n\n${purple}Setting up cocoa pods.${normal}\n\n"
 cd ios
 pod repo update
 pod install
