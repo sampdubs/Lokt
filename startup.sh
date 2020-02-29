@@ -48,7 +48,7 @@ fi
 echo -e "\n${purple}Installing React Native dependencies using homebrew and npm.${normal}\n"
 brew tap AdoptOpenJDK/openjdk
 brew cask install adoptopenjdk8
-npm install -g react-native-cli
+npm install -g react-native-cli@2.0.1
 
 echo -e "\n\n${purple}Installing fbs/PyQt5 dependencies using pyenv and pip, this might take a while.${normal}\n\n"
 pyenv init
@@ -78,10 +78,15 @@ mv lib/fbs/helpers.py src/main/python/helpers.py
 
 ### Setting up React Native Project (Mobile client)
 echo -e "\n\n${purple}Starting the React Native project.${normal}\n\n"
-react-native init --version="0.61.4" Lokt
+react-native init --version="0.61.5" Lokt
 cd Lokt
 mv ../lib/react-native/helpers.js ../lib/react-native/App.js .
-npm install react-native-base64 crypto-js big-integer react-native-fs fernet buffer react-native-elements react-native-vector-icons
+npm install react-native@0.61.5 react-native-base64 crypto-js big-integer react-native-fs fernet buffer react-native-elements react-native-vector-icons
+npm i --save react-native-crypto
+npm i --save react-native-randombytes
+react-native link react-native-randombytes
+npm i --save-dev tradle/rn-nodeify
+./node_modules/.bin/rn-nodeify --hack --install
 react-native link react-native-fs
 cd ios
 pod repo update
@@ -90,6 +95,7 @@ cd ..
 npm install -g yo generator-rn-toolbox
 yo rn-toolbox:assets --icon ../lib/react-native/icon.png
 mv ../lib/react-native/fernet.js node_modules/fernet/fernet.js
+mv ../lib/react-native/AppDelegate.h ios/Lokt/AppDelegate.h
 cd ..
 
 ### Clean up
