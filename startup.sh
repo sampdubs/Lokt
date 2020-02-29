@@ -80,7 +80,7 @@ mv lib/fbs/helpers.py src/main/python/helpers.py
 echo -e "\n\n${purple}Starting the React Native project.${normal}\n\n"
 react-native init --version="0.61.5" Lokt
 cd Lokt
-mv ../lib/react-native/helpers.js ../lib/react-native/App.js ../lib/react-native/package-lock.json .
+mv ../lib/react-native/helpers.js ../lib/react-native/App.js ../package-lock.json .
 # npm install react-native@0.61.5 react-native-base64 crypto-js big-integer react-native-fs fernet buffer react-native-elements react-native-vector-icons
 # npm i --save react-native-crypto
 # npm i --save react-native-randombytes
